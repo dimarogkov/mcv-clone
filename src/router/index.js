@@ -20,8 +20,28 @@ const routes = [
         component: Login,
     },
     {
-        path: '/createArticle',
+        path: '/feed',
+        name: 'yourFeed',
+        component: GlobalFeed,
+    },
+    {
+        path: '/tags/:slug',
+        name: 'tag',
+        component: GlobalFeed,
+    },
+    {
+        path: '/articles/new',
         name: 'createArticle',
+        component: GlobalFeed,
+    },
+    {
+        path: '/articles/:slug',
+        name: 'article',
+        component: GlobalFeed,
+    },
+    {
+        path: '/articles/:slug/edit',
+        name: 'editArticle',
         component: GlobalFeed,
     },
     {
@@ -30,8 +50,13 @@ const routes = [
         component: GlobalFeed,
     },
     {
-        path: '/userProfile',
+        path: '/profiles/:slug',
         name: 'userProfile',
+        component: GlobalFeed,
+    },
+    {
+        path: '/profiles/:slug/favorites',
+        name: 'userProfileFavorites',
         component: GlobalFeed,
     },
 ];
