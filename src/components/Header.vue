@@ -1,9 +1,9 @@
 <template>
     <div>
-        <router-link :to="{name: 'home'}">McvClone</router-link>
+        <router-link :to="{name: 'globalFeed'}">McvClone</router-link>
         <ul>
             <li>
-                <router-link :to="{name: 'home'}" exact active-class="active">Home</router-link>
+                <router-link :to="{name: 'globalFeed'}" exact active-class="active">Home</router-link>
             </li>
 
             <template v-if="isLoggedIn">
