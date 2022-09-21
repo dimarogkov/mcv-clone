@@ -1,7 +1,6 @@
 <template>
-    <div v-if="isLoading">Loading</div>
-
-    <div v-if="errors">Some errors</div>
+    <mcv-loader v-if="isLoading" />
+    <mcv-errors v-if="errors" :errors-message="errors" />
 
     <div v-if="feed" class="feed-block">
         <div
@@ -51,12 +50,16 @@ import {mapState} from 'vuex';
 import {actionsTypes} from '@/modules/feed';
 import {limit} from '@/helpers/vars';
 import McvPagination from '@/components/Pagination';
+import McvLoader from '@/components/Loader';
+import McvErrors from '@/components/Errors';
 import {stringify, parseUrl} from 'query-string';
 
 export default {
     name: 'mcv-feed',
     components: {
         McvPagination,
+        McvLoader,
+        McvErrors,
     },
     props: {
         apiUrl: {

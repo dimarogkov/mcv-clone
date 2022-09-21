@@ -25,8 +25,9 @@ const mutations = {
         state.isLoading = false;
         state.data = data;
     },
-    [mutationsTypes.getFeedFailed](state) {
+    [mutationsTypes.getFeedFailed](state, data) {
         state.isLoading = false;
+        state.errors = data;
     },
 };
 
@@ -41,8 +42,8 @@ const actions = {
                     context.commit(mutationsTypes.getFeedSuccess, response.data);
                     resolve(response.data);
                 })
-                .catch(() => {
-                    context.commit(mutationsTypes.getFeedFailed);
+                .catch((errors) => {
+                    context.commit(mutationsTypes.getFeedFailed, errors);
                 });
         });
     },

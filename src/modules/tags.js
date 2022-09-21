@@ -42,7 +42,9 @@ const actions = {
                     context.commit(mutationsTypes.getTagsSuccess, response);
                     resolve(response);
                 })
-                .catch((errors) => context.commit(mutationsTypes.getTagsFailed, errors));
+                .catch((errors) => {
+                    context.commit(mutationsTypes.getTagsFailed, errors);
+                });
         });
     },
 };
