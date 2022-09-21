@@ -3,25 +3,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Login Page</h1>
+                    <div class="full-block">
+                        <div class="full-wrapper">
+                            <h1 class="h1 title">Login Page</h1>
 
-                    <p>
-                        <router-link :to="{name: 'register'}">Need at account?</router-link>
-                    </p>
+                            <p>
+                                <router-link :to="{name: 'register'}" class="link">Need at account?</router-link>
+                            </p>
 
-                    <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors" />
+                            <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors" />
 
-                    <form @submit.prevent="onSubmit">
-                        <fieldset>
-                            <input type="text" name="email" placeholder="Email" v-model="email" />
-                        </fieldset>
-
-                        <fieldset>
-                            <input type="text" name="password" placeholder="Password" v-model="password" />
-                        </fieldset>
-
-                        <button :disabled="isSubmit">Sign In</button>
-                    </form>
+                            <form class="form" @submit.prevent="onSubmit">
+                                <input type="text" name="email" placeholder="Email" v-model="email" />
+                                <input type="password" name="password" placeholder="Password" v-model="password" />
+                                <button class="btn" :disabled="isSubmit">Sign In</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

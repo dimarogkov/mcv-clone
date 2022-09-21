@@ -27,6 +27,7 @@ export default {
 :root {
     --color-white: #fff;
     --color-black: #282828;
+    --color-grey: #ecf0f1;
     --header-height: 70px;
 }
 * {
@@ -77,6 +78,91 @@ ul {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+h1,
+.h1 {
+    position: relative;
+    font-size: 40px;
+    line-height: 1em;
+}
+.link {
+    position: relative;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--color-black);
+}
+.link::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-black);
+    transition: all 0.3s;
+}
+.link:hover::before {
+    left: auto;
+    right: 0;
+    width: 0;
+}
+.btn {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--color-white);
+    text-transform: uppercase;
+    border: 2px solid var(--color-black);
+    background-color: var(--color-black);
+    transition: all 0.4s;
+}
+.btn:hover {
+    color: var(--color-black);
+    background-color: transparent;
+}
+.btn:active {
+    transform: translateY(5px);
+}
+.full-block {
+    position: relative;
+    top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+}
+.full-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+.full-wrapper .title,
+.full-wrapper p {
+    margin-bottom: 30px;
+}
+.form {
+    position: relative;
+    width: 100%;
+}
+.form input {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    color: var(--color-black);
+    padding: 0 20px;
+    border: 2px solid var(--color-black);
+    margin-bottom: 15px;
+}
+.form input:last-child {
+    margin-bottom: 0;
 }
 @media (max-width: 767px) {
     :root {

@@ -73,8 +73,8 @@ export default {
     display: flex;
     align-items: center;
     font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 5px;
+    font-weight: 500;
+    text-decoration: underline;
 }
 .header__menu {
     position: relative;
