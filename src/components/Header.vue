@@ -34,6 +34,7 @@
             </template>
         </ul>
     </div>
+    <div class="header-margin"></div>
 </template>
 
 <script>
@@ -54,5 +55,58 @@ export default {
 
 <style>
 .header {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    height: var(--header-height);
+    padding: 0 0 0 60px;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-black);
+}
+.header__logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+.header__menu {
+    position: relative;
+    display: flex;
+    height: calc(100% + 1px);
+}
+.header__menu li {
+    position: relative;
+    display: flex;
+}
+.header__menu li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+    border-right: 1px solid var(--color-black);
+    transition: all 0.4s;
+}
+.header__menu li:first-child a {
+    border-left: 1px solid var(--color-black);
+}
+.header__menu li:last-child a {
+    border-right: none;
+}
+.header__menu li a.active {
+    color: var(--color-white);
+    background-color: var(--color-black);
+}
+.header-margin {
+    position: relative;
+    width: 100%;
+    height: var(--header-height);
 }
 </style>
