@@ -3,29 +3,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Register Page</h1>
+                    <div class="full-block">
+                        <div class="full-wrapper">
+                            <h1 class="h1 title">Register Page</h1>
 
-                    <p>
-                        <router-link :to="{name: 'login'}">Have an account?</router-link>
-                    </p>
+                            <p>
+                                <router-link :to="{name: 'login'}" class="link">Have an account?</router-link>
+                            </p>
 
-                    <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors" />
+                            <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors" />
 
-                    <form @submit.prevent="onSubmit">
-                        <fieldset>
-                            <input type="text" name="username" placeholder="Username" v-model="username" />
-                        </fieldset>
-
-                        <fieldset>
-                            <input type="text" name="email" placeholder="Email" v-model="email" />
-                        </fieldset>
-
-                        <fieldset>
-                            <input type="text" name="password" placeholder="Password" v-model="password" />
-                        </fieldset>
-
-                        <button :disabled="isSubmit">Sign Up</button>
-                    </form>
+                            <form class="form" @submit.prevent="onSubmit">
+                                <input type="text" name="username" placeholder="Username" v-model="username" />
+                                <input type="text" name="email" placeholder="Email" v-model="email" />
+                                <input type="password" name="password" placeholder="Password" v-model="password" />
+                                <button class="btn" :disabled="isSubmit">Sign Up</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

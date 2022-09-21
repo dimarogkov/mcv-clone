@@ -127,6 +127,10 @@ h1,
 .btn:active {
     transform: translateY(5px);
 }
+.btn[disabled] {
+    opacity: 0.7;
+    pointer-events: none;
+}
 .full-block {
     position: relative;
     top: -50px;
