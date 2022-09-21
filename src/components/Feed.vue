@@ -42,21 +42,33 @@
             </div>
         </div>
 
-        <div>Pagination</div>
+        <mcv-pagination :total="totalArticles" :limit="limit" :currentPage="currentPage" :url="url" />
     </div>
 </template>
 
 <script>
 import {mapState} from 'vuex';
 import {actionsTypes} from '@/modules/feed';
+import McvPagination from '@/components/Pagination';
 
 export default {
     name: 'mcv-feed',
+    components: {
+        McvPagination,
+    },
     props: {
         apiUrl: {
             type: String,
             required: true,
         },
+    },
+    data() {
+        return {
+            totalArticles: 3,
+            limit: 1,
+            currentPage: 2,
+            url: '/tags/dragons',
+        };
     },
     computed: {
         ...mapState({

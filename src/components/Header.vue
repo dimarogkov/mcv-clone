@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <router-link :to="{name: 'globalFeed'}">McvClone</router-link>
-        <ul>
+    <div class="header">
+        <router-link :to="{name: 'globalFeed'}" class="header__logo">McvClone</router-link>
+        <ul class="header__menu">
             <li>
                 <router-link :to="{name: 'globalFeed'}" exact active-class="active">Home</router-link>
             </li>
@@ -51,3 +51,8 @@ export default {
     },
 };
 </script>
+
+<style>
+.header {
+}
+</style>
