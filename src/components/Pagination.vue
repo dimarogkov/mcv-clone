@@ -61,7 +61,7 @@ export default {
     height: 50px;
     font-size: 17px;
     color: var(--color-black);
-    border: 1px solid var(--color-black);
+    border: 2px solid var(--color-black);
     border-right: none;
     transition: all 0.3s;
 }
@@ -69,7 +69,7 @@ export default {
     background-color: var(--color-grey);
 }
 .pagination li:last-child a {
-    border-right: 1px solid var(--color-black);
+    border-right: 2px solid var(--color-black);
 }
 .pagination li.active a {
     color: var(--color-white);

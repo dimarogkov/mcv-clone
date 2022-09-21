@@ -1,6 +1,7 @@
 import {createStore} from 'vuex';
 import auth from '@/modules/auth';
 import feed from '@/modules/feed';
+import tags from '@/modules/tags';
 
 export default createStore({
     state: {},
@@ -10,5 +11,6 @@ export default createStore({
     modules: {
         auth,
         feed,
+        tags,
     },
 });

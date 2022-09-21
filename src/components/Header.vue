@@ -66,7 +66,16 @@ export default {
     height: var(--header-height);
     padding: 0 0 0 60px;
     background-color: var(--color-white);
-    border-bottom: 1px solid var(--color-black);
+}
+.header::before {
+    position: absolute;
+    z-index: 1;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-black);
 }
 .header__logo {
     position: relative;
@@ -79,7 +88,7 @@ export default {
 .header__menu {
     position: relative;
     display: flex;
-    height: calc(100% + 1px);
+    height: 100%;
 }
 .header__menu li {
     position: relative;
@@ -91,11 +100,14 @@ export default {
     align-items: center;
     height: 100%;
     padding: 0 20px;
-    border-right: 1px solid var(--color-black);
+    border-right: 2px solid var(--color-black);
     transition: all 0.4s;
 }
+.header__menu li a:hover {
+    background-color: var(--color-grey);
+}
 .header__menu li:first-child a {
-    border-left: 1px solid var(--color-black);
+    border-left: 2px solid var(--color-black);
 }
 .header__menu li:last-child a {
     border-right: none;
