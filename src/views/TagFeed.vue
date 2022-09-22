@@ -5,6 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-9">
+                    <mcv-feed-toggle :tag-name="tagName" />
                     <mcv-feed :api-url="apiUrl" />
                 </div>
                 <div class="col-3">
@@ -19,6 +20,7 @@
 import McvBanner from '@/components/Banner';
 import McvFeed from '@/components/Feed';
 import McvTags from '@/components/Tags';
+import McvFeedToggle from '@/components/FeedToggle';
 
 export default {
     name: 'mcv-tag-feed',
@@ -26,11 +28,14 @@ export default {
         McvBanner,
         McvFeed,
         McvTags,
+        McvFeedToggle,
     },
     computed: {
+        tagName() {
+            return this.$route.params.slug;
+        },
         apiUrl() {
-            const tagName = this.$route.params.slug;
-            return `/articles?tag=${tagName}`;
+            return `/articles?tag=${this.tagName}`;
         },
     },
 };
