@@ -38,3 +38,41 @@ export default {
     },
 };
 </script>
+
+<style>
+.tags {
+    position: relative;
+    width: 100%;
+}
+.tags .title {
+    margin-bottom: 20px;
+}
+.tags__list {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+.tags__list li {
+    position: relative;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.tags__list li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 30px;
+    font-size: 14px;
+    color: var(--color-black);
+    text-transform: uppercase;
+    padding: 0 10px;
+    background-color: var(--color-grey);
+    transition: all 0.3s;
+}
+.tags__list li a:hover {
+    color: var(--color-white);
+    background-color: var(--color-black);
+}
+</style>

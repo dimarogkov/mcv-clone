@@ -85,6 +85,18 @@ h1,
     font-size: 40px;
     line-height: 1em;
 }
+h2,
+.h2 {
+    position: relative;
+    font-size: 34px;
+    line-height: 1em;
+}
+h3,
+.h3 {
+    position: relative;
+    font-size: 28px;
+    line-height: 1em;
+}
 .link {
     position: relative;
     display: inline-block;
