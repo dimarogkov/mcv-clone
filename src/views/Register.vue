@@ -49,10 +49,6 @@ export default {
             isSubmit: (state) => state.auth.isSubmit,
             validationErrors: (state) => state.auth.validationErrors,
         }),
-        currentRoute() {
-            console.log(this.$route.path);
-            return this.$route.path;
-        },
     },
     methods: {
         onSubmit() {
