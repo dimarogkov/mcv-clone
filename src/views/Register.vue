@@ -49,6 +49,10 @@ export default {
             isSubmit: (state) => state.auth.isSubmit,
             validationErrors: (state) => state.auth.validationErrors,
         }),
+        currentRoute() {
+            console.log(this.$route.path);
+            return this.$route.path;
+        },
     },
     methods: {
         onSubmit() {
@@ -60,6 +64,9 @@ export default {
                 })
                 .then(() => this.$router.push({name: 'globalFeed'}));
         },
+    },
+    unmounted() {
+        this.$store.dispatch(actionsTypes.getDefault);
     },
 };
 </script>

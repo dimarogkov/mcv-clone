@@ -21,12 +21,15 @@ export const mutationsTypes = {
     getCurrentUserStart: '[auth] getCurrentUserStart',
     getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
     getCurrentUserFailed: '[auth] getCurrentUserFailed',
+
+    getDefaultState: '[auth] getDefaultState',
 };
 
 export const actionsTypes = {
     register: '[auth] register',
     login: '[auth] login',
     getCurrentUser: '[auth] getCurrentUser',
+    getDefault: '[auth] getDefault',
 };
 
 export const gettersTypes = {
@@ -81,6 +84,10 @@ const mutations = {
         state.isLoggedIn = false;
         state.currentUser = null;
     },
+    [mutationsTypes.getDefaultState](state) {
+        state.isSubmit = false;
+        state.validationErrors = null;
+    },
 };
 
 const actions = {
@@ -130,6 +137,10 @@ const actions = {
                 })
                 .catch(() => context.commit(mutationsTypes.getCurrentUserFailed));
         });
+    },
+
+    [actionsTypes.getDefault](context) {
+        return context.commit(mutationsTypes.getDefaultState);
     },
 };
 
