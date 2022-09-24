@@ -58,7 +58,8 @@ export default {
     margin-right: 5px;
     margin-bottom: 5px;
 }
-.tags__list li a {
+.tags__list li a,
+.tags__list li span {
     position: relative;
     display: flex;
     align-items: center;

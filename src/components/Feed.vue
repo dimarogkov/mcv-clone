@@ -37,7 +37,7 @@
 
             <div class="feed-bottom">
                 <span>Read More...</span>
-                <div>Tag List</div>
+                <mcv-article-tags :tags="article.tagList" />
             </div>
         </div>
 
@@ -52,6 +52,7 @@ import {limit} from '@/helpers/vars';
 import McvPagination from '@/components/Pagination';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
+import McvArticleTags from '@/components/ArticleTags';
 import {stringify, parseUrl} from 'query-string';
 
 export default {
@@ -60,6 +61,7 @@ export default {
         McvPagination,
         McvLoader,
         McvErrors,
+        McvArticleTags,
     },
     props: {
         apiUrl: {

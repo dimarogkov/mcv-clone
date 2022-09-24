@@ -45,8 +45,11 @@
                 <div class="row">
                     <div class="col-xl-8 offset-xl-2 col-lt-10 offset-lt-1">
                         <div class="article__block">
-                            <div class="text">{{ article.body }}</div>
-                            <div>Tag List</div>
+                            <div class="text">
+                                <p>{{ article.description }}</p>
+                                <p>{{ article.body }}</p>
+                            </div>
+                            <mcv-article-tags :tags="article.tagList" />
                         </div>
                     </div>
                 </div>
@@ -61,12 +64,14 @@ import {actionsTypes} from '@/modules/article';
 import {gettersTypes} from '@/modules/auth';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
+import McvArticleTags from '@/components/ArticleTags';
 
 export default {
     name: 'mcv-article',
     components: {
         McvLoader,
         McvErrors,
+        McvArticleTags,
     },
     computed: {
         ...mapState({
@@ -205,5 +210,11 @@ export default {
 .article__block .text {
     line-height: 1.5em;
     margin-bottom: 30px;
+}
+.article__block .text p {
+    margin-bottom: 15px;
+}
+.article__block .text p:last-child {
+    margin-bottom: 0;
 }
 </style>
