@@ -28,6 +28,12 @@
                                     {{ article.author.username }}
                                 </router-link>
                             </div>
+                            <div class="article-banner__buttons" v-if="isAuthor">
+                                <router-link :to="{name: 'editArticle', params: {slug: article.slug}}" class="btn">
+                                    Edit Article</router-link
+                                >
+                                <button class="btn" @click="deleteArticle">Delete Article</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,8 +56,9 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapGetters} from 'vuex';
 import {actionsTypes} from '@/modules/article';
+import {gettersTypes} from '@/modules/auth';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
 
@@ -67,10 +74,28 @@ export default {
             article: (state) => state.article.data,
             errors: (state) => state.article.errors,
         }),
+        ...mapGetters({
+            currentUser: gettersTypes.currentUser,
+        }),
+        routeSlug() {
+            return this.$route.params.slug;
+        },
+        isAuthor() {
+            if (!this.currentUser || !this.article) {
+                return false;
+            }
+            return this.currentUser.username === this.article.author.username;
+        },
+    },
+    methods: {
+        deleteArticle() {
+            this.$store
+                .dispatch(actionsTypes.deleteArticle, {slug: this.routeSlug})
+                .then(() => this.$router.push({name: 'globalFeed'}));
+        },
     },
     mounted() {
-        const articleSlug = this.$route.params.slug;
-        this.$store.dispatch(actionsTypes.getArticle, {slug: articleSlug});
+        this.$store.dispatch(actionsTypes.getArticle, {slug: this.routeSlug});
     },
 };
 </script>
@@ -150,6 +175,23 @@ export default {
     left: auto;
     right: 0;
     width: 0;
+}
+.article-banner__buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+.article-banner__buttons .btn {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 0 25px;
+    margin-right: 20px;
+}
+.article-banner__buttons .btn:last-child {
+    margin-right: 0;
 }
 .article,
 .article__block {

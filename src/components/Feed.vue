@@ -15,7 +15,7 @@
                         :to="{name: 'userProfile', params: {slug: article.author.username}}"
                         class="feed-user-logo"
                     >
-                        <img :src="article.author.image" :alt="article.author.username" />
+                        <img v-if="article.author.image" :src="article.author.image" :alt="article.author.username" />
                     </router-link>
                     <div class="feed-user-info">
                         <router-link :to="{name: 'userProfile', params: {slug: article.author.username}}">
