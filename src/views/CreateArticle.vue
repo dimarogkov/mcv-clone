@@ -42,7 +42,7 @@ export default {
         initialValues() {
             return {
                 title: '',
-                desk: '',
+                description: '',
                 body: '',
                 tagList: [],
             };
@@ -50,9 +50,9 @@ export default {
     },
     methods: {
         onSubmit(articleData) {
-            this.$store
-                .dispatch(actionsTypes.createArticle, {articleData})
-                .then((article) => this.$router.push({name: 'article', param: {slug: article.slug}}));
+            this.$store.dispatch(actionsTypes.createArticle, {articleData}).then((article) => {
+                this.$router.push({name: 'article', params: {slug: article.slug}});
+            });
         },
     },
 };

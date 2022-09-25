@@ -95,8 +95,6 @@ const actions = {
             articleApi
                 .createArticle(articleData)
                 .then((response) => {
-                    console.log(response);
-                    console.log(articleData);
                     context.commit(mutationsTypes.createArticleSuccess);
                     resolve(response.data.article);
                 })

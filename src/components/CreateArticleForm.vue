@@ -1,7 +1,7 @@
 <template>
     <form class="form" @submit.prevent="onSubmit">
         <input type="text" name="title" placeholder="Title" v-model="title" />
-        <input type="text" name="desk" placeholder="Description" v-model="desk" />
+        <input type="text" name="desk" placeholder="Description" v-model="description" />
         <textarea name="body" placeholder="What is this article about?" v-model="body" />
         <input type="text" name="tags" placeholder="Enter tags" v-model="tagList" />
         <button class="btn" :disabled="isSubmit">Create</button>
@@ -28,7 +28,7 @@ export default {
     data() {
         return {
             title: '',
-            desk: '',
+            description: '',
             body: '',
             tagList: '',
         };
@@ -37,7 +37,7 @@ export default {
         onSubmit() {
             const form = {
                 title: this.title,
-                desk: this.desk,
+                description: this.description,
                 body: this.body,
                 tagList: this.tagList.split(' '),
             };
