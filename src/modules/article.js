@@ -24,6 +24,8 @@ export const mutationsTypes = {
     updateArticleStart: '[article] updateArticleStart',
     updateArticleSuccess: '[article] updateArticleSuccess',
     updateArticleFailed: '[article] updateArticleFailed',
+
+    getDefaultState: '[article] getDefaultState',
 };
 
 export const actionsTypes = {
@@ -31,6 +33,7 @@ export const actionsTypes = {
     deleteArticle: '[article] deleteArticle',
     createArticle: '[article] createArticle',
     updateArticle: '[article] updateArticle',
+    getDefault: '[article] getDefault',
 };
 
 const mutations = {
@@ -71,6 +74,11 @@ const mutations = {
     [mutationsTypes.updateArticleFailed](state, data) {
         state.isSubmit = false;
         state.validationErrors = data;
+    },
+
+    [mutationsTypes.getDefaultState](state) {
+        state.isSubmit = false;
+        state.validationErrors = null;
     },
 };
 
@@ -129,6 +137,10 @@ const actions = {
                 })
                 .catch((errors) => context.commit(mutationsTypes.updateArticleFailed, errors.response.data.errors));
         });
+    },
+
+    [actionsTypes.getDefault](context) {
+        return context.commit(mutationsTypes.getDefaultState);
     },
 };
 

@@ -55,5 +55,8 @@ export default {
             });
         },
     },
+    unmounted() {
+        this.$store.dispatch(actionsTypes.getDefault);
+    },
 };
 </script>

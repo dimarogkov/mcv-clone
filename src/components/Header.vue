@@ -18,7 +18,9 @@
                         :to="{name: 'userProfile', params: {slug: currentUser.username}}"
                         active-class="active"
                     >
-                        <img :src="currentUser.image" alt />
+                        <span class="header__user-img">
+                            <img :src="currentUser.image" alt />
+                        </span>
                         {{ currentUser.username }}
                     </router-link>
                 </li>
@@ -115,6 +117,26 @@ export default {
 .header__menu li a.active {
     color: var(--color-white);
     background-color: var(--color-black);
+}
+.header__user-img {
+    position: relative;
+    display: flex;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--color-black);
+    margin-right: 15px;
+}
+.header__user-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
 }
 .header-margin {
     position: relative;

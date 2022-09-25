@@ -3,6 +3,7 @@ import auth from '@/modules/auth';
 import feed from '@/modules/feed';
 import tags from '@/modules/tags';
 import article from '@/modules/article';
+import settings from '@/modules/settings';
 
 export default createStore({
     state: {},
@@ -14,5 +15,6 @@ export default createStore({
         feed,
         tags,
         article,
+        settings,
     },
 });

@@ -50,6 +50,7 @@ export default {
 .tags__list {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
 }
 .tags__list li {

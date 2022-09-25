@@ -22,6 +22,7 @@ export const mutationsTypes = {
     getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
     getCurrentUserFailed: '[auth] getCurrentUserFailed',
 
+    logout: '[auth] logout',
     getDefaultState: '[auth] getDefaultState',
 };
 
@@ -29,6 +30,7 @@ export const actionsTypes = {
     register: '[auth] register',
     login: '[auth] login',
     getCurrentUser: '[auth] getCurrentUser',
+    logout: '[auth] logout',
     getDefault: '[auth] getDefault',
 };
 
@@ -58,6 +60,7 @@ const mutations = {
         state.isSubmit = false;
         state.validationErrors = data;
     },
+
     [mutationsTypes.loginStart](state) {
         state.isSubmit = true;
         state.validationErrors = null;
@@ -71,6 +74,7 @@ const mutations = {
         state.isSubmit = false;
         state.validationErrors = data;
     },
+
     [mutationsTypes.getCurrentUserStart](state) {
         state.isLoading = true;
     },
@@ -84,6 +88,12 @@ const mutations = {
         state.isLoggedIn = false;
         state.currentUser = null;
     },
+
+    [mutationsTypes.logout](state) {
+        state.currentUser = null;
+        state.isLoggedIn = false;
+    },
+
     [mutationsTypes.getDefaultState](state) {
         state.isSubmit = false;
         state.validationErrors = null;
@@ -141,6 +151,14 @@ const actions = {
 
     [actionsTypes.getDefault](context) {
         return context.commit(mutationsTypes.getDefaultState);
+    },
+
+    [actionsTypes.logout](context) {
+        return new Promise((resolve) => {
+            setItem('userToken', '');
+            context.commit(mutationsTypes.logout);
+            resolve();
+        });
     },
 };
 
