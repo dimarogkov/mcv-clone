@@ -20,12 +20,17 @@ export const mutationsTypes = {
     createArticleStart: '[article] createArticleStart',
     createArticleSuccess: '[article] createArticleSuccess',
     createArticleFailed: '[article] createArticleFailed',
+
+    updateArticleStart: '[article] updateArticleStart',
+    updateArticleSuccess: '[article] updateArticleSuccess',
+    updateArticleFailed: '[article] updateArticleFailed',
 };
 
 export const actionsTypes = {
     getArticle: '[article] getArticle',
     deleteArticle: '[article] deleteArticle',
     createArticle: '[article] createArticle',
+    updateArticle: '[article] updateArticle',
 };
 
 const mutations = {
@@ -52,9 +57,20 @@ const mutations = {
     [mutationsTypes.createArticleSuccess](state) {
         state.isSubmit = false;
     },
-    [mutationsTypes.createArticleFailed](state, errors) {
+    [mutationsTypes.createArticleFailed](state, data) {
         state.isSubmit = false;
-        state.validationErrors = errors;
+        state.validationErrors = data;
+    },
+
+    [mutationsTypes.updateArticleStart](state) {
+        state.isSubmit = true;
+    },
+    [mutationsTypes.updateArticleSuccess](state) {
+        state.isSubmit = false;
+    },
+    [mutationsTypes.updateArticleFailed](state, data) {
+        state.isSubmit = false;
+        state.validationErrors = data;
     },
 };
 
@@ -80,7 +96,7 @@ const actions = {
             context.commit(mutationsTypes.deleteArticleStart);
 
             articleApi
-                .getArticle(slug)
+                .deleteArticle(slug)
                 .then(() => {
                     context.commit(mutationsTypes.deleteArticleSuccess);
                     resolve();
@@ -99,6 +115,19 @@ const actions = {
                     resolve(response.data.article);
                 })
                 .catch((errors) => context.commit(mutationsTypes.createArticleFailed, errors.response.data.errors));
+        });
+    },
+
+    [actionsTypes.updateArticle](context, {slug, articleData}) {
+        return new Promise((resolve) => {
+            context.commit(mutationsTypes.updateArticleStart);
+            articleApi
+                .updateArticle(slug, articleData)
+                .then((response) => {
+                    context.commit(mutationsTypes.updateArticleSuccess);
+                    resolve(response.data.article);
+                })
+                .catch((errors) => context.commit(mutationsTypes.updateArticleFailed, errors.response.data.errors));
         });
     },
 };
