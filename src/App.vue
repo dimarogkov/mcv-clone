@@ -145,12 +145,12 @@ h3,
 }
 .full-block {
     position: relative;
-    top: -50px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-height));
+    padding: 100px 0;
 }
 .full-wrapper {
     position: relative;
@@ -167,7 +167,8 @@ h3,
     position: relative;
     width: 100%;
 }
-.form input {
+.form input,
+.form textarea {
     position: relative;
     width: 100%;
     height: 50px;
@@ -177,8 +178,14 @@ h3,
     border: 2px solid var(--color-black);
     margin-bottom: 15px;
 }
-.form input:last-child {
+.form input:last-child,
+.form textarea:last-child {
     margin-bottom: 0;
+}
+.form textarea {
+    padding: 10px 20px;
+    height: 120px;
+    resize: none;
 }
 @media (max-width: 767px) {
     :root {
