@@ -97,6 +97,9 @@ export default {
         currentPage() {
             this.loadFeed();
         },
+        apiUrl() {
+            this.loadFeed();
+        },
     },
     mounted() {
         this.loadFeed();
