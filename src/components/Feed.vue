@@ -16,7 +16,7 @@
                         <router-link :to="{name: 'userProfile', params: {slug: article.author.username}}">
                             {{ article.author.username }}
                         </router-link>
-                        <p>{{ article.createdAt }}</p>
+                        <p>{{ moment(article.createdAt).format('DD.MM.YYYY') }}</p>
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
             </div>
 
             <div class="feed__block-bottom">
-                <span>Read More...</span>
+                <router-link :to="{name: 'article', params: {slug: article.slug}}" class="link">Read More</router-link>
                 <mcv-article-tags :tags="article.tagList" />
             </div>
         </div>
@@ -54,6 +54,7 @@ import McvErrors from '@/components/Errors';
 import McvArticleTags from '@/components/ArticleTags';
 import McvAddToFavorites from '@/components/AddToFavorites';
 import {stringify, parseUrl} from 'query-string';
+import moment from 'moment';
 
 export default {
     name: 'mcv-feed',
@@ -72,6 +73,7 @@ export default {
     },
     data() {
         return {
+            moment,
             limit: limit,
         };
     },

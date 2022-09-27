@@ -8,7 +8,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="article-banner__cont">
-                            <div class="text article-banner__date">{{ article.createdAt }}</div>
+                            <div class="text article-banner__date">
+                                {{ moment(article.createdAt).format('DD.MM.YYYY') }}
+                            </div>
                             <h1 class="h1 title">{{ article.title }}</h1>
                             <div class="article-banner__user">
                                 <router-link
@@ -65,6 +67,7 @@ import {gettersTypes} from '@/modules/auth';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
 import McvArticleTags from '@/components/ArticleTags';
+import moment from 'moment';
 
 export default {
     name: 'mcv-article',
@@ -72,6 +75,11 @@ export default {
         McvLoader,
         McvErrors,
         McvArticleTags,
+    },
+    data() {
+        return {
+            moment,
+        };
     },
     computed: {
         ...mapState({
