@@ -4,6 +4,7 @@ import feed from '@/modules/feed';
 import tags from '@/modules/tags';
 import article from '@/modules/article';
 import settings from '@/modules/settings';
+import addToFavorites from '@/modules/addToFavorites';
 
 export default createStore({
     state: {},
@@ -16,5 +17,6 @@ export default createStore({
         tags,
         article,
         settings,
+        addToFavorites,
     },
 });

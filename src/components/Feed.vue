@@ -20,7 +20,11 @@
                     </div>
                 </div>
 
-                <span>Add to Favourite</span>
+                <mcv-add-to-favorites
+                    :articleSlug="article.slug"
+                    :isFavorited="article.favorited"
+                    :favoritesCount="article.favoritesCount"
+                />
             </div>
 
             <div class="feed__block-cont">
@@ -48,6 +52,7 @@ import McvPagination from '@/components/Pagination';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
 import McvArticleTags from '@/components/ArticleTags';
+import McvAddToFavorites from '@/components/AddToFavorites';
 import {stringify, parseUrl} from 'query-string';
 
 export default {
@@ -57,6 +62,7 @@ export default {
         McvLoader,
         McvErrors,
         McvArticleTags,
+        McvAddToFavorites,
     },
     props: {
         apiUrl: {
