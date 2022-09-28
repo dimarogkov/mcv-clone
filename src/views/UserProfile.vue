@@ -2,6 +2,8 @@
     <mcv-loader v-if="isLoading" />
     <mcv-validation-errors v-if="errors" :validation-errors="errors" />
 
+    <mcv-back-page-btn v-if="href" :href="href" />
+
     <template v-if="userProfile">
         <div class="section user-profile">
             <div class="container">
@@ -19,6 +21,14 @@
 
                             <div class="user-profile__buttons" v-if="isUserProfile">
                                 <router-link :to="{name: 'settings'}" class="btn">Edit the Profile</router-link>
+                            </div>
+
+                            <div class="user-profile__buttons" v-else>
+                                <button class="btn" @click="followProfile">
+                                    <template v-if="userProfile.following">Unfollow</template>
+                                    <template v-else>Follow</template>
+                                    {{ userProfile.username }}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -56,6 +66,7 @@ import {mapGetters, mapState} from 'vuex';
 import McvLoader from '@/components/Loader';
 import McvValidationErrors from '@/components/ValidationErrors';
 import McvFeed from '@/components/Feed';
+import McvBackPageBtn from '@/components/BackPageBtn';
 import {actionsTypes} from '@/modules/userProfile';
 import {gettersTypes} from '@/modules/auth';
 
@@ -65,6 +76,12 @@ export default {
         McvLoader,
         McvValidationErrors,
         McvFeed,
+        McvBackPageBtn,
+    },
+    data() {
+        return {
+            href: '/',
+        };
     },
     computed: {
         ...mapState({
@@ -104,6 +121,12 @@ export default {
     methods: {
         getUserProfile() {
             this.$store.dispatch(actionsTypes.getUserProfile, {slug: this.userSlug});
+        },
+        followProfile() {
+            this.$store.dispatch(actionsTypes.followProfile, {
+                slug: this.userSlug,
+                followStatus: this.userProfile.following,
+            });
         },
     },
 };
