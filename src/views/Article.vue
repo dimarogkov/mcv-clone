@@ -3,6 +3,8 @@
     <mcv-errors v-if="errors" :errors-message="errors" />
 
     <template v-if="article">
+        <mcv-back-page-btn v-if="href" :href="href" />
+
         <div class="section article-banner">
             <div class="container">
                 <div class="row">
@@ -67,6 +69,7 @@ import {gettersTypes} from '@/modules/auth';
 import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
 import McvArticleTags from '@/components/ArticleTags';
+import McvBackPageBtn from '@/components/BackPageBtn';
 import moment from 'moment';
 
 export default {
@@ -75,10 +78,12 @@ export default {
         McvLoader,
         McvErrors,
         McvArticleTags,
+        McvBackPageBtn,
     },
     data() {
         return {
             moment,
+            href: '/',
         };
     },
     computed: {

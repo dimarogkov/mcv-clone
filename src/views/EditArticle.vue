@@ -2,6 +2,8 @@
     <div>
         <mcv-loader v-if="isLoading" />
 
+        <mcv-back-page-btn v-if="href" :href="href" />
+
         <div class="section" v-if="article">
             <div class="container">
                 <div class="row">
@@ -32,6 +34,7 @@ import {actionsTypes} from '@/modules/article';
 import McvLoader from '@/components/Loader';
 import McvCreateArticleForm from '@/components/CreateArticleForm';
 import McvValidationErrors from '@/components/ValidationErrors';
+import McvBackPageBtn from '@/components/BackPageBtn';
 
 export default {
     name: 'mcv-edit-article',
@@ -39,6 +42,7 @@ export default {
         McvLoader,
         McvCreateArticleForm,
         McvValidationErrors,
+        McvBackPageBtn,
     },
     computed: {
         ...mapState({
@@ -55,9 +59,15 @@ export default {
                 tagList: this.article.tagList,
             };
         },
+        routeSlug() {
+            return this.$route.params.slug;
+        },
+        href() {
+            return `/articles/${this.routeSlug}`;
+        },
     },
     mounted() {
-        this.$store.dispatch(actionsTypes.getArticle, {slug: this.$route.params.slug});
+        this.$store.dispatch(actionsTypes.getArticle, {slug: this.routeSlug});
     },
     methods: {
         onSubmit(articleData) {
