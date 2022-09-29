@@ -38,6 +38,19 @@
                                 >
                                 <button class="btn" @click="deleteArticle">Delete Article</button>
                             </div>
+                            <div class="article-banner__buttons" v-else>
+                                <mcv-follow-profile-btn
+                                    :followingStatus="article.author.following"
+                                    :username="article.author.username"
+                                    :userSlug="article.author.username"
+                                />
+
+                                <mcv-add-to-favorites
+                                    :favorites-count="article.favoritesCount"
+                                    :is-favorited="article.favorited"
+                                    :article-slug="article.slug"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,6 +83,8 @@ import McvLoader from '@/components/Loader';
 import McvErrors from '@/components/Errors';
 import McvArticleTags from '@/components/ArticleTags';
 import McvBackPageBtn from '@/components/BackPageBtn';
+import McvFollowProfileBtn from '@/components/FollowProfileBtn';
+import McvAddToFavorites from '@/components/AddToFavorites';
 import moment from 'moment';
 
 export default {
@@ -79,6 +94,8 @@ export default {
         McvErrors,
         McvArticleTags,
         McvBackPageBtn,
+        McvFollowProfileBtn,
+        McvAddToFavorites,
     },
     data() {
         return {
@@ -104,6 +121,14 @@ export default {
             }
             return this.currentUser.username === this.article.author.username;
         },
+        followingStatus() {
+            return this.article.author.following;
+        },
+    },
+    watch: {
+        followingStatus() {
+            this.loadArticle();
+        },
     },
     methods: {
         deleteArticle() {
@@ -111,9 +136,12 @@ export default {
                 .dispatch(actionsTypes.deleteArticle, {slug: this.routeSlug})
                 .then(() => this.$router.push({name: 'globalFeed'}));
         },
+        loadArticle() {
+            this.$store.dispatch(actionsTypes.getArticle, {slug: this.routeSlug});
+        },
     },
     mounted() {
-        this.$store.dispatch(actionsTypes.getArticle, {slug: this.routeSlug});
+        this.loadArticle();
     },
 };
 </script>
@@ -210,6 +238,17 @@ export default {
 }
 .article-banner__buttons .btn:last-child {
     margin-right: 0;
+}
+.article-banner__buttons .like {
+    height: 50px;
+    padding: 0 25px;
+    color: var(--color-white);
+    background-color: var(--color-black);
+    transition: all 0.4s;
+}
+.article-banner__buttons .like:hover {
+    color: var(--color-black);
+    background-color: transparent;
 }
 .article,
 .article__block {

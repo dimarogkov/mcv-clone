@@ -24,11 +24,11 @@
                             </div>
 
                             <div class="user-profile__buttons" v-else>
-                                <button class="btn" @click="followProfile">
-                                    <template v-if="userProfile.following">Unfollow</template>
-                                    <template v-else>Follow</template>
-                                    {{ userProfile.username }}
-                                </button>
+                                <mcv-follow-profile-btn
+                                    :followingStatus="userProfile.following"
+                                    :username="userProfile.username"
+                                    :userSlug="userSlug"
+                                />
                             </div>
                         </div>
                     </div>
@@ -67,6 +67,7 @@ import McvLoader from '@/components/Loader';
 import McvValidationErrors from '@/components/ValidationErrors';
 import McvFeed from '@/components/Feed';
 import McvBackPageBtn from '@/components/BackPageBtn';
+import McvFollowProfileBtn from '@/components/FollowProfileBtn';
 import {actionsTypes} from '@/modules/userProfile';
 import {gettersTypes} from '@/modules/auth';
 
@@ -77,6 +78,7 @@ export default {
         McvValidationErrors,
         McvFeed,
         McvBackPageBtn,
+        McvFollowProfileBtn,
     },
     data() {
         return {
@@ -121,12 +123,6 @@ export default {
     methods: {
         getUserProfile() {
             this.$store.dispatch(actionsTypes.getUserProfile, {slug: this.userSlug});
-        },
-        followProfile() {
-            this.$store.dispatch(actionsTypes.followProfile, {
-                slug: this.userSlug,
-                followStatus: this.userProfile.following,
-            });
         },
     },
 };
