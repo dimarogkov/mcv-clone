@@ -108,6 +108,7 @@ export default {
             isLoading: (state) => state.article.isLoading,
             article: (state) => state.article.data,
             errors: (state) => state.article.errors,
+            userProfile: (state) => state.userProfile.data,
         }),
         ...mapGetters({
             currentUser: gettersTypes.currentUser,
@@ -121,14 +122,14 @@ export default {
             }
             return this.currentUser.username === this.article.author.username;
         },
-        followingStatus() {
-            return this.article.author.following;
-        },
     },
     watch: {
-        followingStatus() {
+        userProfile() {
             this.loadArticle();
         },
+    },
+    mounted() {
+        this.loadArticle();
     },
     methods: {
         deleteArticle() {
@@ -139,9 +140,6 @@ export default {
         loadArticle() {
             this.$store.dispatch(actionsTypes.getArticle, {slug: this.routeSlug});
         },
-    },
-    mounted() {
-        this.loadArticle();
     },
 };
 </script>
