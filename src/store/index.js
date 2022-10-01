@@ -6,6 +6,7 @@ import article from '@/modules/article';
 import settings from '@/modules/settings';
 import addToFavorites from '@/modules/addToFavorites';
 import userProfile from '@/modules/userProfile';
+import comments from '@/modules/comments';
 
 export default createStore({
     state: {},
@@ -20,5 +21,6 @@ export default createStore({
         settings,
         addToFavorites,
         userProfile,
+        comments,
     },
 });

@@ -72,6 +72,8 @@
                 </div>
             </div>
         </div>
+
+        <mcv-comments />
     </template>
 </template>
 
@@ -85,6 +87,7 @@ import McvArticleTags from '@/components/ArticleTags';
 import McvBackPageBtn from '@/components/BackPageBtn';
 import McvFollowProfileBtn from '@/components/FollowProfileBtn';
 import McvAddToFavorites from '@/components/AddToFavorites';
+import McvComments from '@/components/Comments';
 import moment from 'moment';
 
 export default {
@@ -96,6 +99,7 @@ export default {
         McvBackPageBtn,
         McvFollowProfileBtn,
         McvAddToFavorites,
+        McvComments,
     },
     data() {
         return {
