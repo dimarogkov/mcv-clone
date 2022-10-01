@@ -14,11 +14,16 @@ export const mutationsTypes = {
     addCommentStart: '[comments] addCommentStart',
     addCommentSuccess: '[comments] addCommentSuccess',
     addCommentFailed: '[comments] addCommentFailed',
+
+    removeCommentStart: '[comments] removeCommentStart',
+    removeCommentSuccess: '[comments] removeCommentSuccess',
+    removeCommentFailed: '[comments] removeCommentFailed',
 };
 
 export const actionsTypes = {
     getComments: '[comments] getComments',
     addComment: '[comments] addComment',
+    removeComment: '[comments] removeComment',
 };
 
 const mutations = {
@@ -39,12 +44,16 @@ const mutations = {
     },
     [mutationsTypes.addCommentSuccess](state, data) {
         state.isSubmit = false;
-        state.data.push(data);
+        state.data.unshift(data);
     },
     [mutationsTypes.addCommentFailed](state, data) {
         state.isSubmit = false;
         state.errors = data;
     },
+
+    [mutationsTypes.removeCommentStart]() {},
+    [mutationsTypes.removeCommentSuccess]() {},
+    [mutationsTypes.removeCommentFailed]() {},
 };
 
 const actions = {
@@ -58,7 +67,7 @@ const actions = {
                     context.commit(mutationsTypes.getCommentsSuccess, response.data.comments);
                     resolve(response.data.comments);
                 })
-                .catch((errors) => context.commit(mutationsTypes.getCommentsFailed, errors));
+                .catch((errors) => context.commit(mutationsTypes.getCommentsFailed, errors.response.data.errors));
         });
     },
 
@@ -67,13 +76,26 @@ const actions = {
             context.commit(mutationsTypes.addCommentStart);
 
             commentsApi
-                .getComments(slug, body)
+                .addComment(slug, body)
                 .then((response) => {
                     context.commit(mutationsTypes.addCommentSuccess, response.data.comment);
                     resolve(response.data.comment);
-                    console.log(response.data);
                 })
-                .catch((errors) => context.commit(mutationsTypes.addCommentFailed, errors));
+                .catch((errors) => context.commit(mutationsTypes.addCommentFailed, errors.response.data.errors));
+        });
+    },
+
+    [actionsTypes.removeComment](context, {slug, id}) {
+        return new Promise((resolve) => {
+            context.commit(mutationsTypes.removeCommentStart);
+
+            commentsApi
+                .removeComment(slug, id)
+                .then(() => {
+                    context.commit(mutationsTypes.removeCommentSuccess);
+                    resolve();
+                })
+                .catch(() => context.commit(mutationsTypes.removeCommentFailed));
         });
     },
 };

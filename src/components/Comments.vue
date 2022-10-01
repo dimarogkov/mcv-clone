@@ -1,9 +1,11 @@
 <template>
-    <div class="section comments" v-if="isUserProfile">
+    <div class="section comments" v-if="comments">
         <div class="container">
             <div class="row">
                 <div class="col-xl-8 offset-xl-2 col-lt-10 offset-lt-1">
-                    <form class="comments__form" @submit.prevent="onSubmit">
+                    <mcv-validation-errors v-if="errors" :validation-errors="errors" />
+
+                    <form class="comments__form" @submit.prevent="onSubmit" v-if="isLoggedIn">
                         <textarea placeholder="Write a comment..." v-model="commentBody"></textarea>
                         <div class="comments__bottom">
                             <div class="comments__user">
@@ -25,12 +27,37 @@
                         </div>
                     </form>
 
-                    <div class="comments__items" v-if="comments">
+                    <div class="comments__items">
                         <div class="comments__item" v-for="(comment, index) in comments" :key="index">
                             <div class="text">
                                 {{ comment.body }}
                             </div>
-                            <div class="comments__bottom"></div>
+                            <div class="comments__bottom">
+                                <div class="comments__user">
+                                    <router-link
+                                        class="comments__logo"
+                                        :to="{name: 'userProfile', params: {slug: comment.author.username}}"
+                                    >
+                                        <img :src="comment.author.image" :alt="comment.author.username" />
+                                    </router-link>
+
+                                    <router-link
+                                        class="link"
+                                        :to="{name: 'userProfile', params: {slug: comment.author.username}}"
+                                    >
+                                        {{ comment.author.username }}
+                                    </router-link>
+
+                                    <span>{{ moment(comment.createdAt).format('DD.MM.YYYY') }}</span>
+                                </div>
+                                <button
+                                    class="link"
+                                    v-if="currentUser && currentUser.username === comment.author.username"
+                                    @click="removeComment(comment.id)"
+                                >
+                                    Remove Post
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,14 +67,17 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex';
-import {actionsTypes as commentsActionsTypes} from '@/modules/comments';
-import {actionsTypes as authActionsTypes, gettersTypes} from '@/modules/auth';
 import moment from 'moment';
-// import {toRaw} from 'vue';
+import {mapGetters, mapState} from 'vuex';
+import {actionsTypes} from '@/modules/comments';
+import {gettersTypes} from '@/modules/auth';
+import McvValidationErrors from '@/components/ValidationErrors';
 
 export default {
     name: 'mcv-comments',
+    components: {
+        McvValidationErrors,
+    },
     data() {
         return {
             moment,
@@ -59,46 +89,33 @@ export default {
             comments: (state) => state.comments.data,
             isSubmit: (state) => state.comments.isSubmit,
             errors: (state) => state.comments.errors,
-            userProfile: (state) => state.auth.currentUser,
         }),
         ...mapGetters({
             currentUser: gettersTypes.currentUser,
+            isLoggedIn: gettersTypes.isLoggedIn,
         }),
         routeSlug() {
             return this.$route.params.slug;
         },
-        isUserProfile() {
-            if (!this.currentUser || !this.userProfile) {
-                return false;
-            }
-
-            return this.currentUser.username === this.userProfile.username;
-        },
-        // newComment() {
-        //     return {
-        //         id: this.comments.length + 1,
-        //         body: this.commentBody,
-        //         createdAt: moment(Date.now()).format('DD.MM.YYYY'),
-        //         author: toRaw(this.currentUser),
-        //     };
-        // },
     },
     methods: {
         getComments() {
-            this.$store.dispatch(commentsActionsTypes.getComments, {slug: this.routeSlug});
-        },
-        getCurrentUser() {
-            this.$store.dispatch(authActionsTypes.getCurrentUser);
+            this.$store.dispatch(actionsTypes.getComments, {slug: this.routeSlug});
         },
         onSubmit() {
-            this.$store.dispatch(commentsActionsTypes.addComment, {
+            this.$store.dispatch(actionsTypes.addComment, {
                 slug: this.routeSlug,
                 body: this.commentBody,
             });
+            this.commentBody = '';
+        },
+        removeComment(id) {
+            this.$store
+                .dispatch(actionsTypes.removeComment, {slug: this.routeSlug, id: id})
+                .then(() => this.getComments());
         },
     },
     mounted() {
-        this.getCurrentUser();
         this.getComments();
     },
 };
@@ -153,12 +170,15 @@ export default {
     margin-bottom: 0;
 }
 .comments__item .text {
-    padding: 12px 20px;
+    padding: 20px;
 }
 .comments__user {
     position: relative;
     display: flex;
     align-items: center;
+}
+.comments__user span {
+    margin-left: 15px;
 }
 .comments__logo {
     position: relative;
