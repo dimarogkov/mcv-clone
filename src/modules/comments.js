@@ -39,7 +39,7 @@ const mutations = {
     },
     [mutationsTypes.addCommentSuccess](state, data) {
         state.isSubmit = false;
-        state.data = data;
+        state.data.push(data);
     },
     [mutationsTypes.addCommentFailed](state, data) {
         state.isSubmit = false;
@@ -62,15 +62,15 @@ const actions = {
         });
     },
 
-    [actionsTypes.addComment](context, {slug, commentsArr}) {
+    [actionsTypes.addComment](context, {slug, body}) {
         return new Promise((resolve) => {
             context.commit(mutationsTypes.addCommentStart);
 
             commentsApi
-                .getComments(slug, commentsArr)
+                .getComments(slug, body)
                 .then((response) => {
-                    context.commit(mutationsTypes.addCommentSuccess, response.data.comments);
-                    resolve(response.data.comments);
+                    context.commit(mutationsTypes.addCommentSuccess, response.data.comment);
+                    resolve(response.data.comment);
                     console.log(response.data);
                 })
                 .catch((errors) => context.commit(mutationsTypes.addCommentFailed, errors));

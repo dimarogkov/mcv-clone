@@ -2,7 +2,7 @@ import axios from '@/api/axios';
 
 const getComments = (slug) => axios.get(`/articles/${slug}/comments`);
 
-const addComment = (slug, commentsArr) => axios.post(`/articles/${slug}/comments`, {comments: commentsArr});
+const addComment = (slug, body) => axios.post(`/articles/${slug}/comments`, {comment: {body}});
 
 const removeComment = (slug) => axios.delete(`/articles/${slug}/comments`);
 

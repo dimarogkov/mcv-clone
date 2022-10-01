@@ -44,7 +44,7 @@ import {mapGetters, mapState} from 'vuex';
 import {actionsTypes as commentsActionsTypes} from '@/modules/comments';
 import {actionsTypes as authActionsTypes, gettersTypes} from '@/modules/auth';
 import moment from 'moment';
-import {toRaw} from 'vue';
+// import {toRaw} from 'vue';
 
 export default {
     name: 'mcv-comments',
@@ -52,7 +52,6 @@ export default {
         return {
             moment,
             commentBody: '',
-            commentsArr: [],
         };
     },
     computed: {
@@ -75,14 +74,14 @@ export default {
 
             return this.currentUser.username === this.userProfile.username;
         },
-        newComment() {
-            return {
-                id: this.commentsArr.length + 1,
-                body: this.commentBody,
-                createdAt: moment(Date.now()).format('DD.MM.YYYY'),
-                author: toRaw(this.currentUser),
-            };
-        },
+        // newComment() {
+        //     return {
+        //         id: this.comments.length + 1,
+        //         body: this.commentBody,
+        //         createdAt: moment(Date.now()).format('DD.MM.YYYY'),
+        //         author: toRaw(this.currentUser),
+        //     };
+        // },
     },
     methods: {
         getComments() {
@@ -92,10 +91,9 @@ export default {
             this.$store.dispatch(authActionsTypes.getCurrentUser);
         },
         onSubmit() {
-            this.commentsArr.push(this.newComment);
             this.$store.dispatch(commentsActionsTypes.addComment, {
                 slug: this.routeSlug,
-                commentsArr: toRaw(this.commentsArr),
+                body: this.commentBody,
             });
         },
     },
