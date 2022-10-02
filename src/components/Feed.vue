@@ -124,6 +124,7 @@ export default {
     position: relative;
     display: block;
     width: 100%;
+    margin-bottom: 50px;
 }
 .feed__block-item {
     position: relative;

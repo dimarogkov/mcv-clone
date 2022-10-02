@@ -1,5 +1,5 @@
 <template>
-    <ul class="pagination">
+    <ul class="pagination" v-if="pages.length > 1">
         <li v-for="page in pages" :key="page" :class="{active: currentPage === page}">
             <router-link :to="{path: url, query: {page: page}}">
                 {{ page }}
@@ -46,7 +46,7 @@ export default {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 50px 0;
+    margin-bottom: 50px;
 }
 .pagination li {
     position: relative;
