@@ -40,6 +40,7 @@
                             </div>
                             <div class="article-banner__buttons" v-else>
                                 <mcv-follow-profile-btn
+                                    v-if="isLoggedIn"
                                     :followingStatus="article.author.following"
                                     :username="article.author.username"
                                     :userSlug="article.author.username"
@@ -116,6 +117,7 @@ export default {
         }),
         ...mapGetters({
             currentUser: gettersTypes.currentUser,
+            isLoggedIn: gettersTypes.isLoggedIn,
         }),
         routeSlug() {
             return this.$route.params.slug;
@@ -168,6 +170,10 @@ export default {
     margin-bottom: 15px;
 }
 .article-banner__cont .title {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     font-weight: 500;
     margin-bottom: 20px;
 }

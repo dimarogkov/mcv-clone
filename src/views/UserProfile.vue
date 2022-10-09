@@ -21,15 +21,18 @@
 
                             <div class="user-profile__buttons" v-if="isUserProfile">
                                 <router-link :to="{name: 'settings'}" class="btn">Edit the Profile</router-link>
+                                <router-link :to="{name: 'createArticle'}" class="btn">Create Article</router-link>
                             </div>
 
-                            <div class="user-profile__buttons" v-else>
-                                <mcv-follow-profile-btn
-                                    :followingStatus="userProfile.following"
-                                    :username="userProfile.username"
-                                    :userSlug="userSlug"
-                                />
-                            </div>
+                            <template v-else>
+                                <div class="user-profile__buttons" v-if="isLoggedIn">
+                                    <mcv-follow-profile-btn
+                                        :followingStatus="userProfile.following"
+                                        :username="userProfile.username"
+                                        :userSlug="userSlug"
+                                    />
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -93,6 +96,7 @@ export default {
         }),
         ...mapGetters({
             currentUser: gettersTypes.currentUser,
+            isLoggedIn: gettersTypes.isLoggedIn,
         }),
         userSlug() {
             return this.$route.params.slug;
@@ -174,11 +178,19 @@ export default {
 .user-profile__cont *:last-child {
     margin-bottom: 0;
 }
+.user-profile__buttons {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
 .user-profile__buttons .btn {
     display: flex;
     align-items: center;
     width: fit-content;
     padding: 0 25px;
-    margin: 0 auto;
+    margin-right: 10px;
+}
+.user-profile__buttons .btn:last-child {
+    margin-right: 0;
 }
 </style>

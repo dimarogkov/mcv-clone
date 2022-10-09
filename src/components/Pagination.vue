@@ -1,11 +1,13 @@
 <template>
-    <ul class="pagination" v-if="pages.length > 1">
-        <li v-for="page in pages" :key="page" :class="{active: currentPage === page}">
-            <router-link :to="{path: url, query: {page: page}}">
-                {{ page }}
-            </router-link>
-        </li>
-    </ul>
+    <div class="pagination__block">
+        <ul class="pagination" v-if="pages.length > 1">
+            <li v-for="page in pages" :key="page" :class="{active: currentPage === page}">
+                <router-link :to="{path: url, query: {page: page}}">
+                    {{ page }}
+                </router-link>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -41,16 +43,22 @@ export default {
 </script>
 
 <style>
+.pagination__block {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-bottom: 50px;
+}
 .pagination {
     position: relative;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 50px;
+    width: auto;
 }
 .pagination li {
     position: relative;
-    display: flex;
+    display: inline-block;
 }
 .pagination li a {
     position: relative;

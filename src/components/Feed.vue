@@ -207,10 +207,12 @@ export default {
     margin-bottom: 30px;
 }
 .feed__block-cont .title {
-    display: flex;
-    width: fit-content;
     padding-bottom: 2px;
     margin-bottom: 10px;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .feed__block-cont .title::before {
     position: absolute;
@@ -226,6 +228,12 @@ export default {
     right: auto;
     left: 0;
     width: 100%;
+}
+.feed__block-cont .text {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .feed__block-bottom {
     position: relative;
